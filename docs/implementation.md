@@ -22,6 +22,17 @@
 
 To illustrate how our technical contract-based approach works in practice, here's a real-world example of processing multiple document types for a telecom site validation using agent orchestration with parallel and looper processes:
 
+### Simple Sequential Flow (Traditional Approach):
+```mermaid
+graph TD
+    A[PDF Ingestion] --> B[Document Parser Tool]
+    B --> C[Structure Normalizer Agent]
+    C --> D[RF Extraction Agent]
+    D --> E[Unit Normalization Agent]
+    E --> F[Validation / Evaluator Agent]
+    F --> G[Knowledge / Claims Storage]
+```
+
 ```mermaid
 sequenceDiagram
     participant Customer
