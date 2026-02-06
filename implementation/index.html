@@ -1,0 +1,1623 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../hitl/">
+      
+      
+        <link rel="next" href="../business-case/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Implementation - Unified AI Infrastructure</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#implementation-roadmap" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Unified AI Infrastructure" class="md-header__button md-logo" aria-label="Unified AI Infrastructure" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Unified AI Infrastructure
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Implementation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technical Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contracts/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contract System
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../hitl/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Human-in-the-Loop
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Implementation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../business-case/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Business Case
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Unified AI Infrastructure" class="md-nav__button md-logo" aria-label="Unified AI Infrastructure" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Unified AI Infrastructure
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contracts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contract System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hitl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human-in-the-Loop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#launch-service-with-pure-agentic-flows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launch Service with Pure Agentic Flows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-world-example-multi-document-site-validation-with-agent-orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Example: Multi-Document Site Validation with Agent Orchestration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real-World Example: Multi-Document Site Validation with Agent Orchestration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simple-sequential-flow-traditional-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simple Sequential Flow (Traditional Approach):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-processing-for-multiple-document-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Processing for Multiple Document Types:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#looper-process-for-validation-and-refinement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Looper Process for Validation and Refinement:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writer-refiner-pattern-looper-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writer-Refiner Pattern (Looper Example):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-implementation-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Implementation Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Implementation Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-processing-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Processing Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-technical-contracts-and-vertex-ai-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with Technical Contracts and Vertex AI Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-orchestration-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Orchestration Process:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-contract-elements-in-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Contract Elements in Action:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-framework-synthetic-data-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Framework &amp; Synthetic Data Generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation Framework &amp; Synthetic Data Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synthetic-data-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synthetic Data Generation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Considerations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#technical-contract-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Contract Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Points
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-architecture-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Architecture &amp; Solutions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical Architecture &amp; Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-infrastructure-management-with-adk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Infrastructure Management with ADK
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-observability-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Observability &amp; Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-evaluation-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Evaluation Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-deployment-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Deployment &amp; CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-multi-tenancy-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Multi-Tenancy Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-burst-capacity-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Burst Capacity Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../business-case/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Business Case
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#launch-service-with-pure-agentic-flows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Launch Service with Pure Agentic Flows
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-world-example-multi-document-site-validation-with-agent-orchestration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Example: Multi-Document Site Validation with Agent Orchestration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real-World Example: Multi-Document Site Validation with Agent Orchestration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#simple-sequential-flow-traditional-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Simple Sequential Flow (Traditional Approach):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-processing-for-multiple-document-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Processing for Multiple Document Types:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#looper-process-for-validation-and-refinement" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Looper Process for Validation and Refinement:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writer-refiner-pattern-looper-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Writer-Refiner Pattern (Looper Example):
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-implementation-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Implementation Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Implementation Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-processing-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Processing Implementation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-with-technical-contracts-and-vertex-ai-search" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration with Technical Contracts and Vertex AI Search
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-orchestration-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Orchestration Process:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-contract-elements-in-action" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Contract Elements in Action:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#evaluation-framework-synthetic-data-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Framework &amp; Synthetic Data Generation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Evaluation Framework &amp; Synthetic Data Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synthetic-data-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synthetic Data Generation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Evaluation Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Considerations
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Considerations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#technical-contract-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Contract Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#agent-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Deployment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#integration-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration Points
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-architecture-solutions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technical Architecture &amp; Solutions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical Architecture &amp; Solutions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-infrastructure-management-with-adk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Infrastructure Management with ADK
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-observability-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Observability &amp; Monitoring
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-evaluation-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Evaluation Framework
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-deployment-cicd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Deployment &amp; CI/CD
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-multi-tenancy-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Multi-Tenancy Architecture
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-burst-capacity-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Burst Capacity Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="implementation-roadmap">Implementation Roadmap</h1>
+<h2 id="launch-service-with-pure-agentic-flows">Launch Service with Pure Agentic Flows</h2>
+<ul>
+<li>Build service with 0 customer-specific code</li>
+<li>Implement flags and special cases handling through pure agentic flows</li>
+<li>Develop end-to-end pipeline from raw files to CAD-ready drawings</li>
+<li>Focus on ground-up development using ADK agent patterns</li>
+<li>No timeline commitments for additional phases since this is ground-up development</li>
+</ul>
+<h2 id="real-world-example-multi-document-site-validation-with-agent-orchestration">Real-World Example: Multi-Document Site Validation with Agent Orchestration</h2>
+<p>To illustrate how our technical contract-based approach works in practice, here's a real-world example of processing multiple document types for a telecom site validation using agent orchestration with parallel and looper processes:</p>
+<h3 id="simple-sequential-flow-traditional-approach">Simple Sequential Flow (Traditional Approach):</h3>
+<pre class="mermaid"><code>graph TD
+    A[PDF Ingestion] --&gt; B[Document Parser Tool]
+    B --&gt; C[Structure Normalizer Agent]
+    C --&gt; D[RF Extraction Agent]
+    D --&gt; E[Unit Normalization Agent]
+    E --&gt; F[Validation / Evaluator Agent]
+    F --&gt; G[Knowledge / Claims Storage]</code></pre>
+<h3 id="parallel-processing-for-multiple-document-types">Parallel Processing for Multiple Document Types:</h3>
+<pre class="mermaid"><code>graph LR
+    subgraph "Supervisor Agent"
+        S[Orchestrator]
+    end
+
+    subgraph "Document Processing Agents"
+        RFDS[RFDS Extraction&lt;br/&gt;Agent]
+        LEASE[Lease Agreement&lt;br/&gt;Agent]
+        MOUNT[Mount Layout&lt;br/&gt;Agent]
+        EMAIL[Email Analysis&lt;br/&gt;Agent]
+    end
+
+    subgraph "Shared Resources"
+        PARSER[Document Parser]
+        VALIDATOR[Validation Agent]
+        STORAGE[Claims Storage]
+    end
+
+    S --&gt; PARSER
+    PARSER --&gt; RFDS
+    PARSER --&gt; LEASE
+    PARSER --&gt; MOUNT
+    PARSER --&gt; EMAIL
+
+    RFDS --&gt; VALIDATOR
+    LEASE --&gt; VALIDATOR
+    MOUNT --&gt; VALIDATOR
+    EMAIL --&gt; VALIDATOR
+
+    VALIDATOR --&gt; STORAGE</code></pre>
+<h3 id="looper-process-for-validation-and-refinement">Looper Process for Validation and Refinement:</h3>
+<pre class="mermaid"><code>graph TD
+    A[Initial Validation] --&gt; B{Validation&lt;br/&gt;Passes?}
+    B --&gt;|Yes| C[Store Valid Claims]
+    B --&gt;|No| D[Identify Issues]
+    D --&gt; E[Send Feedback to&lt;br/&gt;Extraction Agents]
+    E --&gt; F[Refine Extractions]
+    F --&gt; A</code></pre>
+<h3 id="writer-refiner-pattern-looper-example">Writer-Refiner Pattern (Looper Example):</h3>
+<pre class="mermaid"><code>graph TD
+    A[Writer Agent&lt;br/&gt;Generates Initial Output] --&gt; B{Quality&lt;br/&gt;Check}
+    B --&gt;|Acceptable| C[Approve Output]
+    B --&gt;|Needs Improvement| D[Refiner Agent&lt;br/&gt;Provides Feedback]
+    D --&gt; E[Writer Agent&lt;br/&gt;Revises Output]
+    E --&gt; B</code></pre>
+<p>The <a href="https://google.github.io/adk-docs/agents/workflow-agents/loop-agents/#python">writer-refiner pattern</a> is a prime example of how looper agents work in practice. In our document processing context, this could manifest as:</p>
+<ol>
+<li><strong>Writer Agent</strong>: An extraction agent that generates initial interpretations of document sections</li>
+<li><strong>Quality Check</strong>: Validation against technical contracts and schemas</li>
+<li><strong>Refiner Agent</strong>: Another agent that reviews the output and provides specific feedback</li>
+<li><strong>Revision Loop</strong>: The writer agent revises its output based on feedback until quality standards are met</li>
+</ol>
+<p>This pattern ensures that outputs meet the required quality standards before being accepted, creating a robust and reliable processing pipeline.</p>
+<h2 id="code-implementation-example">Code Implementation Example</h2>
+<p>The ADK framework provides specific patterns for implementing these agent workflows. For our document processing use case, we could implement the writer-refiner pattern as follows:</p>
+<h3 id="basic-structure">Basic Structure</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vertexai</span><span class="w"> </span><span class="kn">import</span> <span class="n">agent_builder</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">vertexai.agent_builder</span><span class="w"> </span><span class="kn">import</span> <span class="n">utils</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># Repository Layer for Technical Contracts</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">ContractRepository</span><span class="p">:</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Repository for managing versioned technical contracts&quot;&quot;&quot;</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_current_prompt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">contract_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get current prompt from repository&quot;&quot;&quot;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="k">if</span> <span class="n">version</span><span class="p">:</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_prompt</span><span class="p">(</span><span class="n">contract_type</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>            <span class="c1"># Get latest version</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>            <span class="n">latest_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_latest_version</span><span class="p">(</span><span class="n">contract_type</span><span class="p">,</span> <span class="s2">&quot;prompt&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_prompt</span><span class="p">(</span><span class="n">contract_type</span><span class="p">,</span> <span class="n">latest_version</span><span class="p">)</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_current_schema</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">schema_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get current schema from repository&quot;&quot;&quot;</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>        <span class="k">if</span> <span class="n">version</span><span class="p">:</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_schema</span><span class="p">(</span><span class="n">schema_type</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>            <span class="c1"># Get latest version</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>            <span class="n">latest_version</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_latest_version</span><span class="p">(</span><span class="n">schema_type</span><span class="p">,</span> <span class="s2">&quot;schema&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fetch_schema</span><span class="p">(</span><span class="n">schema_type</span><span class="p">,</span> <span class="n">latest_version</span><span class="p">)</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="c1"># Define the writer agent that performs initial extraction</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="k">def</span><span class="w"> </span><span class="nf">rfds_extraction_agent</span><span class="p">(</span><span class="n">document_file</span><span class="p">):</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Extracts RF parameters from document files using repository layer&quot;&quot;&quot;</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>    <span class="c1"># Uses versioned prompts and schemas from technical contracts repository</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>    <span class="n">contract_repo</span> <span class="o">=</span> <span class="n">ContractRepository</span><span class="p">()</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>    <span class="n">prompt</span> <span class="o">=</span> <span class="n">contract_repo</span><span class="o">.</span><span class="n">get_current_prompt</span><span class="p">(</span><span class="s2">&quot;rfds_extraction&quot;</span><span class="p">,</span> <span class="s2">&quot;2.4&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>    <span class="n">schema</span> <span class="o">=</span> <span class="n">contract_repo</span><span class="o">.</span><span class="n">get_current_schema</span><span class="p">(</span><span class="s2">&quot;rf_output&quot;</span><span class="p">,</span> <span class="s2">&quot;1.0&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>
+<a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>    <span class="c1"># Use Vertex AI Search to retrieve relevant sections</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>    <span class="n">search_results</span> <span class="o">=</span> <span class="n">vertex_ai_search</span><span class="p">(</span><span class="n">document_file</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">prompt</span><span class="o">.</span><span class="n">context_query</span><span class="p">)</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">llm_call</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">search_results</span><span class="o">.</span><span class="n">relevant_sections</span><span class="p">)</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>    <span class="k">return</span> <span class="n">validate_against_schema</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>
+<a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="c1"># Define the refiner agent that validates and improves outputs</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a><span class="k">def</span><span class="w"> </span><span class="nf">validation_refiner_agent</span><span class="p">(</span><span class="n">extracted_data</span><span class="p">):</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Validates extraction and provides refinement feedback&quot;&quot;&quot;</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>    <span class="n">contract_repo</span> <span class="o">=</span> <span class="n">ContractRepository</span><span class="p">()</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>    <span class="n">schema</span> <span class="o">=</span> <span class="n">contract_repo</span><span class="o">.</span><span class="n">get_current_schema</span><span class="p">(</span><span class="s2">&quot;rf_output&quot;</span><span class="p">,</span> <span class="s2">&quot;1.0&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>    <span class="n">validation_result</span> <span class="o">=</span> <span class="n">validate_against_schema</span><span class="p">(</span><span class="n">extracted_data</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>
+<a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>    <span class="k">if</span> <span class="n">validation_result</span><span class="o">.</span><span class="n">confidence_score</span> <span class="o">&lt;</span> <span class="mf">0.8</span><span class="p">:</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a>        <span class="n">feedback</span> <span class="o">=</span> <span class="n">generate_refinement_feedback</span><span class="p">(</span><span class="n">extracted_data</span><span class="p">,</span> <span class="n">validation_result</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;needs_revision&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;feedback&quot;</span><span class="p">:</span> <span class="n">feedback</span><span class="p">}</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a>        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;needs_revision&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;validated_data&quot;</span><span class="p">:</span> <span class="n">extracted_data</span><span class="p">}</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>
+<a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a><span class="c1"># Looper implementation</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54" href="#__codelineno-0-54"></a><span class="k">def</span><span class="w"> </span><span class="nf">extraction_looper</span><span class="p">(</span><span class="n">document_file</span><span class="p">):</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55" href="#__codelineno-0-55"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Main extraction loop with validation and refinement&quot;&quot;&quot;</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56" href="#__codelineno-0-56"></a>    <span class="c1"># Vertex AI Search handles document retrieval and relevant section identification</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57" href="#__codelineno-0-57"></a>    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58" href="#__codelineno-0-58"></a>
+<a id="__codelineno-0-59" name="__codelineno-0-59" href="#__codelineno-0-59"></a>    <span class="c1"># Writer step: initial extraction using file metadata and Vertex AI Search</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60" href="#__codelineno-0-60"></a>    <span class="n">extracted</span> <span class="o">=</span> <span class="n">rfds_extraction_agent</span><span class="p">(</span><span class="n">document_file</span><span class="p">)</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61" href="#__codelineno-0-61"></a>
+<a id="__codelineno-0-62" name="__codelineno-0-62" href="#__codelineno-0-62"></a>    <span class="c1"># Looper: validate and refine until quality is met</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63" href="#__codelineno-0-63"></a>    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64" href="#__codelineno-0-64"></a>        <span class="n">refinement_result</span> <span class="o">=</span> <span class="n">validation_refiner_agent</span><span class="p">(</span><span class="n">extracted</span><span class="p">)</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65" href="#__codelineno-0-65"></a>
+<a id="__codelineno-0-66" name="__codelineno-0-66" href="#__codelineno-0-66"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">refinement_result</span><span class="p">[</span><span class="s2">&quot;needs_revision&quot;</span><span class="p">]:</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67" href="#__codelineno-0-67"></a>            <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">refinement_result</span><span class="p">[</span><span class="s2">&quot;validated_data&quot;</span><span class="p">])</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68" href="#__codelineno-0-68"></a>            <span class="k">break</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69" href="#__codelineno-0-69"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70" href="#__codelineno-0-70"></a>            <span class="c1"># Apply feedback to improve extraction</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71" href="#__codelineno-0-71"></a>            <span class="n">extracted</span> <span class="o">=</span> <span class="n">apply_feedback</span><span class="p">(</span><span class="n">extracted</span><span class="p">,</span> <span class="n">refinement_result</span><span class="p">[</span><span class="s2">&quot;feedback&quot;</span><span class="p">])</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72" href="#__codelineno-0-72"></a>
+<a id="__codelineno-0-73" name="__codelineno-0-73" href="#__codelineno-0-73"></a>    <span class="k">return</span> <span class="n">results</span>
+</code></pre></div>
+<h3 id="parallel-processing-implementation">Parallel Processing Implementation</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">ThreadPoolExecutor</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">process_documents_parallel</span><span class="p">(</span><span class="n">document_files</span><span class="p">):</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Process multiple document files in parallel using metadata IDs&quot;&quot;&quot;</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="n">futures</span> <span class="o">=</span> <span class="p">[]</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="k">for</span> <span class="n">doc_file</span> <span class="ow">in</span> <span class="n">document_files</span><span class="p">:</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>            <span class="k">if</span> <span class="n">doc_file</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;rfds&quot;</span><span class="p">:</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>                <span class="n">future</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">rfds_extraction_agent</span><span class="p">,</span> <span class="n">doc_file</span><span class="p">)</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>            <span class="k">elif</span> <span class="n">doc_file</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;lease&quot;</span><span class="p">:</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>                <span class="n">future</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">lease_extraction_agent</span><span class="p">,</span> <span class="n">doc_file</span><span class="p">)</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            <span class="k">elif</span> <span class="n">doc_file</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;mount_layout&quot;</span><span class="p">:</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>                <span class="n">future</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">mount_extraction_agent</span><span class="p">,</span> <span class="n">doc_file</span><span class="p">)</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>            <span class="k">elif</span> <span class="n">doc_file</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s2">&quot;email&quot;</span><span class="p">:</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>                <span class="n">future</span> <span class="o">=</span> <span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">email_analysis_agent</span><span class="p">,</span> <span class="n">doc_file</span><span class="p">)</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>            <span class="n">futures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">future</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> <span class="k">for</span> <span class="n">future</span> <span class="ow">in</span> <span class="n">futures</span><span class="p">]</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>    <span class="k">return</span> <span class="n">results</span>
+</code></pre></div>
+<h3 id="integration-with-technical-contracts-and-vertex-ai-search">Integration with Technical Contracts and Vertex AI Search</h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">rfds_extraction_with_contracts_and_vertex_search</span><span class="p">(</span><span class="n">document_file</span><span class="p">):</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Extraction using technical contracts with Vertex AI Search integration&quot;&quot;&quot;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="n">contract_repo</span> <span class="o">=</span> <span class="n">ContractRepository</span><span class="p">()</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="c1"># Get versioned prompt from repository</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="n">prompt</span> <span class="o">=</span> <span class="n">contract_repo</span><span class="o">.</span><span class="n">get_current_prompt</span><span class="p">(</span><span class="s2">&quot;rfds_extraction&quot;</span><span class="p">,</span> <span class="s2">&quot;2.4&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>    <span class="c1"># Use Vertex AI Search to retrieve only relevant document sections</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>    <span class="c1"># based on the extraction requirements in the prompt</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>    <span class="n">search_config</span> <span class="o">=</span> <span class="p">{</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>        <span class="s2">&quot;query&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="o">.</span><span class="n">extraction_requirements</span><span class="p">,</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>        <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;document_id&quot;</span><span class="p">:</span> <span class="n">document_file</span><span class="o">.</span><span class="n">id</span><span class="p">},</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>        <span class="s2">&quot;max_chunks&quot;</span><span class="p">:</span> <span class="mi">5</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>    <span class="p">}</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>    <span class="n">search_results</span> <span class="o">=</span> <span class="n">vertex_ai_search</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">search_config</span><span class="p">)</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>    <span class="c1"># Process only the most relevant sections</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">llm_call</span><span class="p">(</span><span class="n">prompt</span><span class="o">.</span><span class="n">content</span><span class="p">,</span> <span class="n">search_results</span><span class="o">.</span><span class="n">chunks</span><span class="p">)</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="c1"># Validate against versioned schema from repository</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>    <span class="n">schema</span> <span class="o">=</span> <span class="n">contract_repo</span><span class="o">.</span><span class="n">get_current_schema</span><span class="p">(</span><span class="s2">&quot;rf_output&quot;</span><span class="p">,</span> <span class="s2">&quot;1.0&quot;</span><span class="p">)</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>    <span class="n">validation</span> <span class="o">=</span> <span class="n">validate_against_schema</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">schema</span><span class="p">)</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>
+<a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>    <span class="k">return</span> <span class="n">validation</span>
+</code></pre></div>
+<p>This code structure demonstrates how the ADK patterns can be applied to our specific document processing use case, with GCS RAG handling document chunking automatically, and clear separation of concerns between extraction, validation, and refinement processes, all governed by versioned technical contracts.</p>
+<h3 id="agent-orchestration-process">Agent Orchestration Process:</h3>
+<ol>
+<li><strong>Customer Initiation</strong>: Customer uploads multiple documents (RFDS, Lease Agreement, Mount Layout, related emails) via SharePoint integration</li>
+<li><strong>Document Classification</strong>: System identifies document types and routes appropriately</li>
+<li><strong>Parallel Processing</strong>: Supervisor Agent initiates specialized extraction agents based on document type:</li>
+<li>RFDS Extraction Agent processes primary radio frequency study</li>
+<li>Lease Agreement Agent processes legal constraints and permissions</li>
+<li>Mount Layout Agent processes structural specifications</li>
+<li>Email Analysis Agent processes related communications for context</li>
+<li><strong>Cross-Document Validation</strong>: Validation Agent checks for consistency across all document types</li>
+<li><strong>Conflict Resolution</strong>: If conflicts arise (e.g., height restrictions in lease vs RFDS), system handles through HITL or refinement</li>
+<li><strong>Claims Storage</strong>: Results stored as immutable claims with full provenance tracking</li>
+</ol>
+<h3 id="technical-contract-elements-in-action">Technical Contract Elements in Action:</h3>
+<ul>
+<li><strong>Prompt Versions</strong>: Each agent receives document-type-specific, versioned prompts (e.g., RFDS Extraction uses prompt v2.4)</li>
+<li><strong>Input Schema Version</strong>: Defines expected structure for each document type (input schema v1.2)</li>
+<li><strong>Output Schema Version</strong>: Dictates final integrated output format (output schema v2.1)</li>
+<li><strong>Model Configuration</strong>: Sets parameters for each agent's operation based on document type</li>
+<li><strong>Append-Only Log</strong>: Records every interaction for auditability and traceability</li>
+</ul>
+<p>This example demonstrates how the Supervisor Agent intelligently orchestrates specialized subagents for different document types using parallel processing and looper refinement cycles, while technical contracts ensure deterministic, verifiable processing across all document types.</p>
+<h2 id="evaluation-framework-synthetic-data-generation">Evaluation Framework &amp; Synthetic Data Generation</h2>
+<p>Recent developments from OpenAI, Anthropic, and Google have emphasized the critical importance of evaluations in shaping AI for specific business cases. AI models may seem vague and shaky initially, but that's the point - frontier AI requires lab work to properly evaluate and tune models for specific use cases.</p>
+<h3 id="synthetic-data-generation">Synthetic Data Generation</h3>
+<p>Google has recently introduced synthetic data generation capabilities within the Vertex stack. Using templates, we can generate thousands or even millions of sample customer documents and run them through our pipeline for comprehensive testing. This approach allows us to:</p>
+<ul>
+<li>Test our system against diverse document types and edge cases</li>
+<li>Validate the accuracy of our technical contracts</li>
+<li>Identify potential issues before processing real customer data</li>
+<li>Build comprehensive evaluation datasets for continuous improvement</li>
+</ul>
+<h3 id="evaluation-best-practices">Evaluation Best Practices</h3>
+<ul>
+<li><strong>Template-Based Testing</strong>: Create document templates that represent common customer scenarios</li>
+<li><strong>Synthetic Data Generation</strong>: Use Vertex AI's capabilities to generate realistic test data</li>
+<li><strong>Continuous Evaluation</strong>: Implement ongoing evaluation pipelines to monitor performance</li>
+<li><strong>Cross-Customer Benchmarking</strong>: Compare performance across different customer verticals</li>
+<li><strong>Golden Dataset Creation</strong>: Maintain high-quality sample documents with known outputs for regression testing</li>
+</ul>
+<h2 id="implementation-considerations">Implementation Considerations</h2>
+<h3 id="technical-contract-management">Technical Contract Management</h3>
+<ul>
+<li><strong>Version Control</strong>: Implement robust versioning for all technical contracts (prompts, schemas, model configs)</li>
+<li><strong>Deployment Pipeline</strong>: Create automated deployment processes for contract updates</li>
+<li><strong>Rollback Capability</strong>: Ensure quick rollback options for contract changes</li>
+<li><strong>Testing Framework</strong>: Establish comprehensive testing for each contract version</li>
+</ul>
+<h3 id="agent-deployment">Agent Deployment</h3>
+<ul>
+<li><strong>Containerization</strong>: Package agents in containers for consistent deployment</li>
+<li><strong>Auto-scaling</strong>: Implement auto-scaling based on workload demands</li>
+<li><strong>Monitoring</strong>: Set up comprehensive monitoring and alerting for agent performance</li>
+<li><strong>Load Balancing</strong>: Distribute workloads efficiently across agent instances</li>
+</ul>
+<h3 id="integration-points">Integration Points</h3>
+<ul>
+<li><strong>Document Ingestion</strong>: Implement connectors for SharePoint, S3, and other document sources</li>
+<li><strong>Output Delivery</strong>: Create standardized interfaces for delivering results to customer systems</li>
+<li><strong>Notification Systems</strong>: Integrate with Slack, JIRA, and other communication tools</li>
+<li><strong>Security Protocols</strong>: Ensure all integrations meet enterprise security standards</li>
+</ul>
+<h2 id="technical-architecture-solutions">Technical Architecture &amp; Solutions</h2>
+<h3 id="1-infrastructure-management-with-adk">1. Infrastructure Management with ADK</h3>
+<p><strong>Current Issue:</strong> Building and maintaining memory layers, chat history, and state management from scratch
+- Requires custom database schemas for conversation history
+- Complex locking mechanisms for concurrent access
+- Serialization/deserialization overhead
+- Custom retry and error handling logic</p>
+<p><strong>Solution with ADK:</strong>
+- Managed session state with ADK's built-in session management
+- Automatic conversation history tracking for each agent
+- Built-in state persistence and recovery
+- Native support for long-term memory without custom implementation</p>
+<h3 id="2-observability-monitoring">2. Observability &amp; Monitoring</h3>
+<p><strong>Universal Monitoring System:</strong>
+- Integrated tracing and logging for all agent interactions across all customers
+- Real-time performance metrics per versioned technical contract
+- Cost tracking and optimization recommendations by customer
+- Cross-customer performance degradation detection</p>
+<h3 id="3-evaluation-framework">3. Evaluation Framework</h3>
+<p><strong>Technical Contract-Based Testing:</strong>
+- Customer-specific evaluation metrics based on versioned contract requirements
+- Cross-customer benchmarking to identify improvement opportunities
+- Synthetic data generation based on versioned contract patterns
+- Continuous evaluation pipelines for each versioned technical contract type</p>
+<h3 id="4-deployment-cicd">4. Deployment &amp; CI/CD</h3>
+<p><strong>Customer-Agnostic Deployment:</strong>
+- One-click deployment of versioned technical contract-based agents
+- Automatic traffic splitting for A/B testing between contract versions
+- Rollback capabilities with versioned contract management
+- Integration with existing CI/CD pipelines for platform updates</p>
+<h3 id="5-multi-tenancy-architecture">5. Multi-Tenancy Architecture</h3>
+<p><strong>Customer Isolation:</strong>
+- Contract-specific resource allocation
+- Data isolation with encryption at rest/in transit
+- Customer-specific role-based access controls
+- Usage metering per customer contract</p>
+<h3 id="6-burst-capacity-management">6. Burst Capacity Management</h3>
+<p><strong>Universal Auto-scaling:</strong>
+- Instant scaling from 0 to thousands of concurrent contract processes
+- Pay-per-use pricing model per customer contract execution
+- Regional redundancy for high availability across all customers
+- Predictive scaling based on cross-customer workload patterns</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "toc.follow", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
+      
+        <script src="../js/mermaid-init.js"></script>
+      
+    
+  </body>
+</html>

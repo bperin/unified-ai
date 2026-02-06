@@ -1,0 +1,1401 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../overview/">
+      
+      
+        <link rel="next" href="../contracts/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Technical Architecture - Unified AI Infrastructure</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#technical-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Unified AI Infrastructure" class="md-header__button md-logo" aria-label="Unified AI Infrastructure" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Unified AI Infrastructure
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Technical Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../overview/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technical Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../contracts/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Contract System
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../hitl/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Human-in-the-Loop
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../implementation/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Implementation
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../business-case/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Business Case
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Unified AI Infrastructure" class="md-nav__button md-logo" aria-label="Unified AI Infrastructure" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Unified AI Infrastructure
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#agent-based-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent-Based Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent-Based Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#document-processing-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document Processing Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-orchestration-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Orchestration Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent Orchestration Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supervisorworker-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervisor/Worker Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#looper-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Looper Agents
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infrastructure-management-with-adk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure Management with ADK
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-options-pricing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Options &amp; Pricing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Options &amp; Pricing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#google-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Google Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partner-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partner Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-source-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Source Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-management-context-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Management &amp; Context Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Management &amp; Context Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advanced-memory-banks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Memory Banks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-window-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context Window Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#claims-attestation-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claims &amp; Attestation Process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Claims &amp; Attestation Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tool-2-claim-builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool 2 — Claim Builder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-3-zk-attestation-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool 3 — ZK Attestation Simulator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importance-of-trustless-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importance of Trustless Verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge-management-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Knowledge Management &amp; Retrieval
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contracts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contract System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hitl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Human-in-the-Loop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../implementation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Implementation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../business-case/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Business Case
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#agent-based-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent-Based Framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent-Based Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#core-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Core Components
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#document-processing-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Document Processing Pipeline
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-orchestration-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Agent Orchestration Patterns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Agent Orchestration Patterns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#supervisorworker-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supervisor/Worker Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parallel Processing
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#looper-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Looper Agents
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#infrastructure-management-with-adk" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Infrastructure Management with ADK
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model-options-pricing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Model Options &amp; Pricing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Model Options &amp; Pricing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#google-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Google Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partner-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Partner Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-source-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open Source Models
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-management-context-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Management &amp; Context Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Memory Management &amp; Context Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#advanced-memory-banks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced Memory Banks
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#context-window-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Context Window Management
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#claims-attestation-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Claims &amp; Attestation Process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Claims &amp; Attestation Process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tool-2-claim-builder" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool 2 — Claim Builder
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tool-3-zk-attestation-simulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tool 3 — ZK Attestation Simulator
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#importance-of-trustless-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importance of Trustless Verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#knowledge-management-retrieval" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Knowledge Management &amp; Retrieval
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visual Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="technical-architecture">Technical Architecture</h1>
+<h2 id="agent-based-framework">Agent-Based Framework</h2>
+<p>Our platform leverages Google's Agent Development Kit (ADK) with Vertex AI to implement a horizontally scalable, customer-agnostic system. The architecture follows a <strong>Supervisor/Worker</strong> pattern, utilizing <strong>Domain-Driven Design (DDD)</strong> to isolate business rules from technical orchestration.</p>
+<h3 id="core-components">Core Components</h3>
+<ul>
+<li><strong>The Supervisor (Planner):</strong> Acts as a "planner over missing claims." It identifies what evidence is required to reach a target schema version and delegates tasks dynamically.</li>
+<li><strong>Domain Workers:</strong> Specialized agents (e.g., RFDS Agent, Lease Agent) that are stateless and focused on generating specific claims.</li>
+<li><strong>Stateless by Design:</strong> We explicitly reject the "Stateful Graph" anti-pattern (like complex LangGraph chains). State is heavy, brittle, and difficult to debug. Instead, we treat state as a natural byproduct of the ecosystem:<ul>
+<li><strong>Context:</strong> The immediate working set of data (e.g., the current document).</li>
+<li><strong>Session:</strong> The ephemeral interaction history (e.g., "Why did you choose that value?").</li>
+<li><strong>Memory:</strong> The long-term persistent store of validated truths (The Database).</li>
+</ul>
+</li>
+</ul>
+<h3 id="document-processing-pipeline">Document Processing Pipeline</h3>
+<p>Traditional approaches that rely on stateless libraries often result in LLMs being run repeatedly over entire documents, which is not optimal. Our approach optimizes document processing by:</p>
+<ol>
+<li><strong>Structured Data Extraction First</strong>: Specialized parsers extract core data from documents (e.g., RFDS files) before LLM processing</li>
+<li><strong>Targeted LLM Usage</strong>: LLMs receive only the relevant, extracted information rather than entire documents</li>
+<li><strong>Efficient Resource Allocation</strong>: Reduces computational costs by minimizing unnecessary LLM calls</li>
+<li><strong>Improved Accuracy</strong>: Structured parsing provides more reliable foundational data for LLM reasoning</li>
+</ol>
+<h2 id="agent-orchestration-patterns">Agent Orchestration Patterns</h2>
+<p>The architecture supports multiple agent orchestration patterns that work together:</p>
+<h3 id="supervisorworker-pattern">Supervisor/Worker Pattern</h3>
+<ul>
+<li><strong>Central Coordination</strong>: The Supervisor Agent acts as the central coordinator that delegates tasks to specialized workers</li>
+<li><strong>Specialized Workers</strong>: Worker Agents (e.g., RFDS Agent, Lease Agent) focus on specific extraction tasks</li>
+<li><strong>State Management</strong>: The supervisor maintains overall workflow state while workers remain stateless</li>
+</ul>
+<h3 id="parallel-processing">Parallel Processing</h3>
+<ul>
+<li><strong>Concurrent Execution</strong>: Multiple agents can process different document types simultaneously</li>
+<li><strong>Resource Optimization</strong>: Distributes workload efficiently across available resources</li>
+<li><strong>Scalability</strong>: Enables processing of multiple documents in parallel</li>
+</ul>
+<h3 id="looper-agents">Looper Agents</h3>
+<ul>
+<li><strong>Iterative Refinement</strong>: Agents can refine their outputs through multiple iterations</li>
+<li><strong>Quality Assurance</strong>: Continuous validation and improvement of results</li>
+<li><strong>Self-Correction</strong>: Agents can identify and fix their own errors</li>
+</ul>
+<h2 id="infrastructure-management-with-adk">Infrastructure Management with ADK</h2>
+<p><strong>Solution with ADK:</strong>
+- Managed session state with ADK's built-in session management
+- Automatic conversation history tracking for each agent
+- Built-in state persistence and recovery
+- Native support for long-term memory without custom implementation</p>
+<h2 id="model-options-pricing">Model Options &amp; Pricing</h2>
+<p>Our platform leverages the diverse model ecosystem available through Vertex AI, providing flexibility and cost optimization:</p>
+<h3 id="google-models">Google Models</h3>
+<ul>
+<li><a href="https://cloud.google.com/vertex-ai/generative-ai/pricing#google_models">Gemini models pricing</a></li>
+<li>Advanced multimodal capabilities with massive context windows</li>
+<li>Optimized for complex reasoning and document analysis</li>
+</ul>
+<h3 id="partner-models">Partner Models</h3>
+<ul>
+<li><a href="https://cloud.google.com/vertex-ai/generative-ai/pricing#mistral-models">Mistral models pricing</a></li>
+<li>Alternative reasoning capabilities for specialized tasks</li>
+<li>Competitive pricing for high-volume workloads</li>
+</ul>
+<h3 id="open-source-models">Open Source Models</h3>
+<ul>
+<li><a href="https://cloud.google.com/vertex-ai/generative-ai/pricing#qwen-models">Qwen models pricing</a></li>
+<li>Cost-effective options for specific use cases</li>
+<li>Data sovereignty for sensitive workloads</li>
+</ul>
+<h2 id="memory-management-context-windows">Memory Management &amp; Context Windows</h2>
+<h3 id="advanced-memory-banks">Advanced Memory Banks</h3>
+<p>Our platform utilizes <a href="https://cloud.google.com/agent-builder/agent-engine/memory-bank/generate-memories">Vertex AI Memory Banks</a> for efficient long-term storage and retrieval of contextual information.</p>
+<h3 id="context-window-management">Context Window Management</h3>
+<p>Unlike traditional approaches where adding RAG stores or message history can overload context windows, ADK implements sophisticated memory management:</p>
+<ul>
+<li><strong>Selective Context Loading:</strong> Only relevant information is loaded into the active context window based on the current task</li>
+<li><strong>Memory Bank Integration:</strong> Long-term memories are stored separately and retrieved on-demand rather than kept in the active context</li>
+<li><strong>Session State Management:</strong> Conversation history is managed separately from the active context, preventing window overflow</li>
+<li><strong>Dynamic Context Optimization:</strong> The system automatically determines which information is most relevant for the current decision, keeping the context window focused and efficient</li>
+<li><strong>Context Compaction:</strong> ADK provides <a href="https://google.github.io/adk-docs/context/compaction/">context compaction capabilities</a> to automatically summarize and compress context when needed, ensuring optimal performance even with extensive document sets</li>
+</ul>
+<p>This approach ensures that adding more documents, conversation history, or RAG data doesn't simply overload the context window - instead, the system intelligently manages what information is actively available to the model at any given time.</p>
+<h2 id="claims-attestation-process">Claims &amp; Attestation Process</h2>
+<p>The system implements a robust claims and attestation process that transforms raw extracted data into verifiable, trustworthy information:</p>
+<h3 id="tool-2-claim-builder">Tool 2 — Claim Builder</h3>
+<p>Takes RF output → emits claim objects.</p>
+<p><strong>Input Format:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="p">{</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&quot;parameter&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Output Power&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dBm&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">&quot;limit_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;max&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">&quot;source_pages&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">12</span><span class="p">],</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">&quot;table_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_4&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="nt">&quot;pipeline_versions&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nt">&quot;parser&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.1&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="nt">&quot;extractor&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.3&quot;</span><span class="p">,</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nt">&quot;normalizer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0.9&quot;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="p">}</span>
+</code></pre></div></p>
+<p><strong>Output Format (Claim Object):</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="p">{</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">&quot;claim_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;c_12345&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">&quot;key&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;output_power_max&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="nt">&quot;unit&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dBm&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="nt">&quot;confidence&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.98</span><span class="p">,</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="nt">&quot;rationale&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Extracted from Power Amplifier Specifications table on page 12.&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="nt">&quot;provenance&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="nt">&quot;document&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;AE201.24-10-25.WSUTH0035137.IDL04374.pdf&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="nt">&quot;page&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">    </span><span class="nt">&quot;table_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;table_4&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">    </span><span class="nt">&quot;bbox&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w"> </span><span class="mi">300</span><span class="p">,</span><span class="w"> </span><span class="mi">250</span><span class="p">]</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="nt">&quot;validation_status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;verified&quot;</span><span class="p">,</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2024-11-05T10:30:00Z&quot;</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p">}</span>
+</code></pre></div></p>
+<h3 id="tool-3-zk-attestation-simulator">Tool 3 — ZK Attestation Simulator</h3>
+<p>Generates cryptographic proofs for claim verification:</p>
+<ul>
+<li><strong>Commitment Hash:</strong> Cryptographic commitment to the claim</li>
+<li><strong>Proof Object:</strong> Zero-knowledge proof of claim validity</li>
+<li><strong>Verifier Result:</strong> Verification outcome without revealing sensitive details</li>
+</ul>
+<p>This process ensures that every piece of extracted data becomes a verifiable, auditable claim that can be trusted across the organization.</p>
+<h2 id="importance-of-trustless-verification">Importance of Trustless Verification</h2>
+<p>The claims and attestation process is critical because it moves us toward a trustless, verifiable system where no single document serves as the ultimate source of truth. Instead:</p>
+<ul>
+<li><strong>Multiple Sources</strong>: Claims are validated against multiple document types and cross-referenced for consistency</li>
+<li><strong>Cryptographic Verification</strong>: Zero-knowledge proofs ensure claim validity without revealing sensitive information</li>
+<li><strong>Immutable Audit Trail</strong>: All claims are stored immutably with complete provenance tracking</li>
+<li><strong>Discrepancy Detection</strong>: The system automatically identifies conflicts between different documents or sources</li>
+<li><strong>Human-in-the-Loop</strong>: When conflicts arise, the system escalates to human experts for resolution</li>
+<li><strong>Version Control</strong>: All document versions and claim revisions are tracked and auditable</li>
+</ul>
+<p>This approach eliminates the risk of relying on potentially outdated, incorrect, or manipulated documents as the sole source of truth, creating a robust, verifiable foundation for business decisions.</p>
+<h2 id="knowledge-management-retrieval">Knowledge Management &amp; Retrieval</h2>
+<p><strong>Technical Contract-Based Approach:</strong>
+- <strong>Versioned Schema Indexing:</strong> Documents indexed based on versioned schemas rather than hardcoded categories
+- <strong>Cross-Customer Learning:</strong> Insights from one customer's contracts improve others' processing
+- <strong>Adaptive Retrieval:</strong> Retrieval strategies adjust based on versioned contract requirements
+- <strong>Cost-Benefit:</strong> Managed solutions reduce operational overhead while maintaining cross-industry performance</p>
+<h2 id="visual-architecture">Visual Architecture</h2>
+<pre class="mermaid"><code>graph TB
+    subgraph "Technical Contract Layer"
+        A[Prompt Version&lt;br/&gt;from DB] --&gt; B[Input Schema&lt;br/&gt;Version from DB]
+        A --&gt; C[Model Config&lt;br/&gt;Version from DB]
+        B --&gt; D[Output Schema&lt;br/&gt;Version from DB]
+    end
+
+    subgraph "Platform Layer"
+        E[Contract Interpreter] --&gt; F[Universal Agent Framework]
+        F --&gt; G[Supervisor Agent]
+        F --&gt; H[Specialized Agents]
+        F --&gt; I[Claims Processor]
+        F --&gt; J[HITL Agent]
+    end
+
+    subgraph "Infrastructure Layer"
+        K[Vertex AI] --&gt; L[ADK Runtime]
+        L --&gt; M[Document Processing]
+        L --&gt; N[Memory Management]
+        L --&gt; O[Evaluation Engine]
+    end
+
+    subgraph "Immutable Output Layer"
+        P[AI-Generated Artifacts&lt;br/&gt;Append-Only Log]
+        Q[Claims Log&lt;br/&gt;Append-Only]
+        R[Model Responses&lt;br/&gt;Append-Only]
+    end
+
+    subgraph "Mutable State Layer"
+        S[Sitemap&lt;br/&gt;Aggregate State]
+        T[CAD Files&lt;br/&gt;Locked When Generated]
+        U[Site Validation&lt;br/&gt;Mutable Until Locked]
+    end
+
+    subgraph "External Tools"
+        V[JIRA Integration]
+        W[Slack Notifications]
+        X[Email Alerts]
+    end
+
+    A --&gt; E
+    E --&gt; F
+    F --&gt; K
+    O --&gt; J
+    P --&gt; S
+    Q --&gt; S
+    R --&gt; S
+    J --&gt; V
+    J --&gt; W
+    J --&gt; X</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.expand", "toc.follow", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@10.6.1/dist/mermaid.min.js"></script>
+      
+        <script src="../js/mermaid-init.js"></script>
+      
+    
+  </body>
+</html>
