@@ -1,22 +1,11 @@
 # Implementation Roadmap
 
-## Phase 1: Telecom Excellence Preservation & Technical Contract Foundation (Weeks 1-8)
-- Migrate existing telecom logic into versioned technical contract system
-- Implement universal agent framework with versioned contracts
-- Preserve proven telecom capabilities while abstracting hard-coded logic
-- Establish CS-Engineering collaboration protocols for technical contract definition
-
-## Phase 2: Technical Contract System (Weeks 9-16)  
-- Implement dynamic agent configuration based on versioned technical contracts
-- Deploy schema versioning and append-only logging systems
-- Add SharePoint and other document connector integrations
-- Implement HITL agent framework and external tool integrations
-
-## Phase 3: Horizontal Expansion Platform (Weeks 17-24)
-- Fine-tune cross-customer performance and accuracy
-- Implement advanced technical contract-based provenance tracking
-- Conduct security and compliance audits for multi-industry use
-- Prepare for expansion to legal, financial, and healthcare verticals
+## Launch Service with Pure Agentic Flows
+- Build service with 0 customer-specific code
+- Implement flags and special cases handling through pure agentic flows
+- Develop end-to-end pipeline from raw files to CAD-ready drawings
+- Focus on ground-up development using ADK agent patterns
+- No timeline commitments for additional phases since this is ground-up development
 
 ## Real-World Example: Multi-Document Site Validation with Agent Orchestration
 
