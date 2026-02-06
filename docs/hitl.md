@@ -4,21 +4,31 @@
 
 Human-in-the-Loop (HITL) agents are essential for handling complex scenarios where AI agents may diverge or require human judgment. Rather than replacing human expertise, HITL agents enhance the system by seamlessly integrating human oversight into the automated workflow.
 
-## HITL Agent Framework Integration
+## HITL Integration Process
 
 ### Seamless Integration:
-- **Supervisor Coordination:** HITL agents are orchestrated by the same Supervisor that manages AI agents
 - **Claim Divergence Detection:** Automated systems detect when agent claims conflict or fall below confidence thresholds
-- **Human Intervention Triggers:** Predefined conditions automatically route tasks to human experts
+- **Human Intervention Triggers:** Predefined conditions automatically route tasks to human experts for resolution
+- **Subject Matter Expert Review:** Domain experts review conflicting claims and provide resolution guidance
 - **Workflow Continuation:** Human decisions are treated as high-confidence claims that continue the automated workflow
 
-### Divergence Resolution Process:
+### Resolution Process:
 1. **Conflict Detection:** Claims processor identifies conflicting claims from different agents
 2. **Confidence Threshold Check:** Claims falling below predefined confidence levels trigger HITL
-3. **Human Assignment:** Supervisor assigns task to appropriate human expert
+3. **Expert Assignment:** Appropriate subject matter expert is notified of the conflict
 4. **Resolution Input:** Human expert reviews conflicting claims and provides resolution
 5. **Claim Integration:** Human decision is recorded as high-confidence claim
 6. **Workflow Resumption:** Automated processing continues with human input
+
+## Subject Matter Expert Involvement
+
+Rather than having dedicated HITL agents, the system relies on subject matter experts who help with evaluations and provide resolution when the system and experts align on output scoring and confidence. This approach reduces the need for constant human intervention as the system learns from expert feedback.
+
+Experts engage with the system by:
+- **Evaluating outputs** and providing feedback on scoring and confidence
+- **Responding to agent requests** for resolution when automated processes reach their limits
+- **Training the system** through their evaluations to improve future automated decisions
+- **Providing domain knowledge** to refine the technical contracts and validation rules
 
 ## Handling Divergence of Claims
 
