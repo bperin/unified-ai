@@ -34,7 +34,7 @@ The core business goal is to shift from ephemeral data extraction to a system th
 
 ### Why This Scales
 *   **Decoupling Extraction from Knowledge:** By building a canonical site model through fused claims, the system handles N-customers and N-document types without constant code intervention.
-*   **Verifiable Facts:** Instead of "chatting with documents," the system produces a structured representation of reality (e.g., a tower's physical configuration) that the business can rely on for high-stakes decisions like engineering and construction.
+*   **Verifiable Facts:** As more data is processed through the system, confidence scores increase, creating a self-reinforcing cycle of accuracy and reliability that the business can rely on for high-stakes decisions like engineering and construction.
 
 ---
 

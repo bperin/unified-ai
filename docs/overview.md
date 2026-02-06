@@ -14,9 +14,9 @@ This approach addresses the core industry challenge by focusing on artifact gove
 
 ## Key Differences: Libraries vs Platforms
 
-Working with stateless libraries presents unique challenges that highlight the distinction between AI libraries and managed platforms:
+Working with stateless third-party libraries presents unique challenges that highlight the distinction between AI libraries and managed platforms:
 
-- **AI Libraries (like LangGraph)**: Require building your own infrastructure for state management, persistence, observability, and governance
+- **Stateless Third-Party Libraries**: Offer short-term convenience at long-term expense; require building your own infrastructure for state management, persistence, observability, and governance. Useful for testing and prototyping but not for enterprise solutions.
 - **AI Platforms (like ADK)**: Provide managed services for state, tracing, memory, and orchestration as part of the platform
 
 ## Challenges with Current Approaches

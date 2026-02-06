@@ -27,8 +27,8 @@ Traditional approaches that rely on stateless libraries often result in LLMs bei
 The architecture supports multiple agent orchestration patterns that work together:
 
 ### Supervisor/Worker Pattern
-- **Supervisor Agent**: Acts as the central coordinator that delegates tasks to specialized workers
-- **Worker Agents**: Specialized agents (e.g., RFDS Agent, Lease Agent) that focus on specific extraction tasks
+- **Central Coordination**: The Supervisor Agent acts as the central coordinator that delegates tasks to specialized workers
+- **Specialized Workers**: Worker Agents (e.g., RFDS Agent, Lease Agent) focus on specific extraction tasks
 - **State Management**: The supervisor maintains overall workflow state while workers remain stateless
 
 ### Parallel Processing
