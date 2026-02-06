@@ -22,6 +22,25 @@ Traditional approaches that rely on stateless libraries often result in LLMs bei
 3. **Efficient Resource Allocation**: Reduces computational costs by minimizing unnecessary LLM calls
 4. **Improved Accuracy**: Structured parsing provides more reliable foundational data for LLM reasoning
 
+## Agent Orchestration Patterns
+
+The architecture supports multiple agent orchestration patterns that work together:
+
+### Supervisor/Worker Pattern
+- **Supervisor Agent**: Acts as the central coordinator that delegates tasks to specialized workers
+- **Worker Agents**: Specialized agents (e.g., RFDS Agent, Lease Agent) that focus on specific extraction tasks
+- **State Management**: The supervisor maintains overall workflow state while workers remain stateless
+
+### Parallel Processing
+- **Concurrent Execution**: Multiple agents can process different document types simultaneously
+- **Resource Optimization**: Distributes workload efficiently across available resources
+- **Scalability**: Enables processing of multiple documents in parallel
+
+### Looper Agents
+- **Iterative Refinement**: Agents can refine their outputs through multiple iterations
+- **Quality Assurance**: Continuous validation and improvement of results
+- **Self-Correction**: Agents can identify and fix their own errors
+
 ## Infrastructure Management with ADK
 
 **Solution with ADK:**

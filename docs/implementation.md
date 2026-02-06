@@ -106,20 +106,47 @@ The ADK framework provides specific patterns for implementing these agent workfl
 from vertexai import agent_builder
 from vertexai.agent_builder import utils
 
-# Define the writer agent that performs initial extraction
-def rfds_extraction_agent(document_chunk):
-    """Extracts RF parameters from document sections"""
-    # Uses versioned prompts and schemas from technical contracts
-    prompt = get_versioned_prompt("rfds_extraction_v2.4")
-    schema = get_versioned_schema("rf_output_v1.0")
+# Repository Layer for Technical Contracts
+class ContractRepository:
+    """Repository for managing versioned technical contracts"""
     
-    result = llm_call(prompt, document_chunk)
+    def get_current_prompt(self, contract_type: str, version: str = None):
+        """Get current prompt from repository"""
+        if version:
+            return self._fetch_prompt(contract_type, version)
+        else:
+            # Get latest version
+            latest_version = self._get_latest_version(contract_type, "prompt")
+            return self._fetch_prompt(contract_type, latest_version)
+    
+    def get_current_schema(self, schema_type: str, version: str = None):
+        """Get current schema from repository"""
+        if version:
+            return self._fetch_schema(schema_type, version)
+        else:
+            # Get latest version
+            latest_version = self._get_latest_version(schema_type, "schema")
+            return self._fetch_schema(schema_type, latest_version)
+
+# Define the writer agent that performs initial extraction
+def rfds_extraction_agent(document_file):
+    """Extracts RF parameters from document files using repository layer"""
+    # Uses versioned prompts and schemas from technical contracts repository
+    contract_repo = ContractRepository()
+    prompt = contract_repo.get_current_prompt("rfds_extraction", "2.4")
+    schema = contract_repo.get_current_schema("rf_output", "1.0")
+    
+    # Use Vertex AI Search to retrieve relevant sections
+    search_results = vertex_ai_search(document_file.id, query=prompt.context_query)
+    
+    result = llm_call(prompt.content, search_results.relevant_sections)
     return validate_against_schema(result, schema)
 
 # Define the refiner agent that validates and improves outputs
 def validation_refiner_agent(extracted_data):
     """Validates extraction and provides refinement feedback"""
-    schema = get_versioned_schema("rf_output_v1.0")
+    contract_repo = ContractRepository()
+    schema = contract_repo.get_current_schema("rf_output", "1.0")
     validation_result = validate_against_schema(extracted_data, schema)
     
     if validation_result.confidence_score < 0.8:
@@ -129,14 +156,13 @@ def validation_refiner_agent(extracted_data):
         return {"needs_revision": False, "validated_data": extracted_data}
 
 # Looper implementation
-def extraction_looper(document):
+def extraction_looper(document_file):
     """Main extraction loop with validation and refinement"""
-    # GCS with RAG automatically handles document chunking
-    # No manual chunking needed - RAG provides relevant sections as needed
+    # Vertex AI Search handles document retrieval and relevant section identification
     results = []
     
-    # Writer step: initial extraction (RAG provides relevant document sections)
-    extracted = rfds_extraction_agent(document)
+    # Writer step: initial extraction using file metadata and Vertex AI Search
+    extracted = rfds_extraction_agent(document_file)
     
     # Looper: validate and refine until quality is met
     while True:
@@ -157,20 +183,20 @@ def extraction_looper(document):
 import asyncio
 from concurrent.futures import ThreadPoolExecutor
 
-async def process_documents_parallel(documents):
-    """Process multiple document types in parallel"""
+async def process_documents_parallel(document_files):
+    """Process multiple document files in parallel using metadata IDs"""
     with ThreadPoolExecutor(max_workers=4) as executor:
         futures = []
         
-        for doc_type, doc in documents.items():
-            if doc_type == "rfds":
-                future = executor.submit(rfds_extraction_agent, doc)
-            elif doc_type == "lease":
-                future = executor.submit(lease_extraction_agent, doc)
-            elif doc_type == "mount_layout":
-                future = executor.submit(mount_extraction_agent, doc)
-            elif doc_type == "email":
-                future = executor.submit(email_analysis_agent, doc)
+        for doc_file in document_files:
+            if doc_file.type == "rfds":
+                future = executor.submit(rfds_extraction_agent, doc_file)
+            elif doc_file.type == "lease":
+                future = executor.submit(lease_extraction_agent, doc_file)
+            elif doc_file.type == "mount_layout":
+                future = executor.submit(mount_extraction_agent, doc_file)
+            elif doc_file.type == "email":
+                future = executor.submit(email_analysis_agent, doc_file)
             
             futures.append(future)
         
@@ -179,47 +205,30 @@ async def process_documents_parallel(documents):
     return results
 ```
 
-### Integration with Technical Contracts and RAG
+### Integration with Technical Contracts and Vertex AI Search
 ```python
-class TechnicalContractManager:
-    """Manages versioned technical contracts"""
+def rfds_extraction_with_contracts_and_vertex_search(document_file):
+    """Extraction using technical contracts with Vertex AI Search integration"""
+    contract_repo = ContractRepository()
     
-    def __init__(self):
-        self.prompt_versions = {}
-        self.schema_versions = {}
+    # Get versioned prompt from repository
+    prompt = contract_repo.get_current_prompt("rfds_extraction", "2.4")
     
-    def get_prompt(self, contract_id, version=None):
-        """Retrieve versioned prompt for specific contract"""
-        if version:
-            return self.prompt_versions[f"{contract_id}_v{version}"]
-        else:
-            # Return latest version
-            latest_version = self.get_latest_version(contract_id, "prompt")
-            return self.prompt_versions[f"{contract_id}_v{latest_version}"]
+    # Use Vertex AI Search to retrieve only relevant document sections
+    # based on the extraction requirements in the prompt
+    search_config = {
+        "query": prompt.extraction_requirements,
+        "filters": {"document_id": document_file.id},
+        "max_chunks": 5
+    }
+    search_results = vertex_ai_search.search(search_config)
     
-    def validate_output(self, output, schema_id, version):
-        """Validate output against versioned schema"""
-        schema = self.get_schema(schema_id, version)
-        return validate_against_schema(output, schema)
-
-# Usage in agents
-contract_manager = TechnicalContractManager()
-
-def rfds_extraction_with_contracts_and_rag(document):
-    """Extraction using technical contracts with RAG integration"""
-    # Get versioned prompt
-    prompt = contract_manager.get_prompt("rfds_extraction", "2.4")
+    # Process only the most relevant sections
+    result = llm_call(prompt.content, search_results.chunks)
     
-    # RAG automatically handles document chunking and retrieval
-    # Only relevant sections are sent to the LLM
-    result = llm_call_with_rag(prompt, document)
-    
-    # Validate against versioned schema
-    validation = contract_manager.validate_output(
-        result, 
-        "rf_output", 
-        "1.0"
-    )
+    # Validate against versioned schema from repository
+    schema = contract_repo.get_current_schema("rf_output", "1.0")
+    validation = validate_against_schema(result, schema)
     
     return validation
 ```
@@ -269,6 +278,26 @@ Google has recently introduced synthetic data generation capabilities within the
 - **Continuous Evaluation**: Implement ongoing evaluation pipelines to monitor performance
 - **Cross-Customer Benchmarking**: Compare performance across different customer verticals
 - **Golden Dataset Creation**: Maintain high-quality sample documents with known outputs for regression testing
+
+## Implementation Considerations
+
+### Technical Contract Management
+- **Version Control**: Implement robust versioning for all technical contracts (prompts, schemas, model configs)
+- **Deployment Pipeline**: Create automated deployment processes for contract updates
+- **Rollback Capability**: Ensure quick rollback options for contract changes
+- **Testing Framework**: Establish comprehensive testing for each contract version
+
+### Agent Deployment
+- **Containerization**: Package agents in containers for consistent deployment
+- **Auto-scaling**: Implement auto-scaling based on workload demands
+- **Monitoring**: Set up comprehensive monitoring and alerting for agent performance
+- **Load Balancing**: Distribute workloads efficiently across agent instances
+
+### Integration Points
+- **Document Ingestion**: Implement connectors for SharePoint, S3, and other document sources
+- **Output Delivery**: Create standardized interfaces for delivering results to customer systems
+- **Notification Systems**: Integrate with Slack, JIRA, and other communication tools
+- **Security Protocols**: Ensure all integrations meet enterprise security standards
 
 ## Technical Architecture & Solutions
 
