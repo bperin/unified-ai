@@ -119,12 +119,6 @@ Moving other systems to GCP isn't trivial but isn't particularly difficult if th
 3. **Network Effects:** Accumulate knowledge and capabilities across industries
 4. **Scale Efficiently:** Customer onboarding becomes a technical contract process, not development
 
-### Market Opportunity
-
-- **Total Addressable Market:** $50B+ across document processing in legal, financial, healthcare, telecom, and energy sectors
-- **Network Effects:** Each new customer improves capabilities for others
-- **Defensible Position:** Accumulated domain knowledge across multiple industries
-- **Revenue Model:** SaaS platform with per-document or per-contract pricing
 
 ## Conclusion
 

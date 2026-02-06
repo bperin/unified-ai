@@ -84,6 +84,72 @@ Unlike traditional approaches where adding RAG stores or message history can ove
 
 This approach ensures that adding more documents, conversation history, or RAG data doesn't simply overload the context window - instead, the system intelligently manages what information is actively available to the model at any given time.
 
+## Claims & Attestation Process
+
+The system implements a robust claims and attestation process that transforms raw extracted data into verifiable, trustworthy information:
+
+### Tool 2 — Claim Builder
+Takes RF output → emits claim objects.
+
+**Input Format:**
+```json
+{
+  "parameter": "Output Power",
+  "value": 2,
+  "unit": "dBm",
+  "limit_type": "max",
+  "source_pages": [12],
+  "table_id": "table_4",
+  "pipeline_versions": {
+    "parser": "2.1",
+    "extractor": "1.3",
+    "normalizer": "0.9"
+  }
+}
+```
+
+**Output Format (Claim Object):**
+```json
+{
+  "claim_id": "c_12345",
+  "key": "output_power_max",
+  "value": 2,
+  "unit": "dBm",
+  "confidence": 0.98,
+  "rationale": "Extracted from Power Amplifier Specifications table on page 12.",
+  "provenance": {
+    "document": "AE201.24-10-25.WSUTH0035137.IDL04374.pdf",
+    "page": 12,
+    "table_id": "table_4",
+    "bbox": [100, 200, 300, 250]
+  },
+  "validation_status": "verified",
+  "timestamp": "2024-11-05T10:30:00Z"
+}
+```
+
+### Tool 3 — ZK Attestation Simulator
+Generates cryptographic proofs for claim verification:
+
+- **Commitment Hash:** Cryptographic commitment to the claim
+- **Proof Object:** Zero-knowledge proof of claim validity
+- **Verifier Result:** Verification outcome without revealing sensitive details
+
+This process ensures that every piece of extracted data becomes a verifiable, auditable claim that can be trusted across the organization.
+
+## Importance of Trustless Verification
+
+The claims and attestation process is critical because it moves us toward a trustless, verifiable system where no single document serves as the ultimate source of truth. Instead:
+
+- **Multiple Sources**: Claims are validated against multiple document types and cross-referenced for consistency
+- **Cryptographic Verification**: Zero-knowledge proofs ensure claim validity without revealing sensitive information
+- **Immutable Audit Trail**: All claims are stored immutably with complete provenance tracking
+- **Discrepancy Detection**: The system automatically identifies conflicts between different documents or sources
+- **Human-in-the-Loop**: When conflicts arise, the system escalates to human experts for resolution
+- **Version Control**: All document versions and claim revisions are tracked and auditable
+
+This approach eliminates the risk of relying on potentially outdated, incorrect, or manipulated documents as the sole source of truth, creating a robust, verifiable foundation for business decisions.
+
 ## Knowledge Management & Retrieval
 
 **Technical Contract-Based Approach:**

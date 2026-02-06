@@ -30,7 +30,7 @@ We operate on a purely OPEX, pay-as-you-go model (see [Vertex AI Pricing](https:
 ## 2. Technical Execution: The Business of Attesting Truth
 
 ### Vision: Attestation & Canonical Models
-The core business goal is to shift from ephemeral data extraction to **attesting truth** and building **canonical models** that scale. Traditional AI implementations often result in untyped, unversioned outputs that are difficult to verify. We propose a system where every piece of data is a signed, evidence-backed **Claim**.
+The core business goal is to shift from ephemeral data extraction to a system that enables both structured attestation and interactive document engagement. Customers and internal users want to be able to chat with documents to ask questions and refine them at the same time for feedback loops - this functionality serves practical business needs, not just convenience. The system also moves away from rigid, hard-coded automation pipelines where random pieces of data are extracted and manually assembled to build CAD models. Current approaches follow very specific, rigid patterns that require extensive custom code for each document type, creating maintenance burdens and limiting scalability. Our AI attestation approach allows us to scale both in domain knowledge and code-wise. We propose a system where every piece of data is a signed, evidence-backed **Claim** that can be verified and trusted.
 
 ### Why This Scales
 *   **Decoupling Extraction from Knowledge:** By building a canonical site model through fused claims, the system handles N-customers and N-document types without constant code intervention.
@@ -70,22 +70,155 @@ The system uses a standardized protocol to ensure agents remain composable and t
 }
 ```
 
-**Example Output (The Claim):**
+**Example Output (Aggregated Claims - Comprehensive RFDS Structure):**
 ```json
 {
-  "claim_id": "c_12345",
-  "key": "top_of_antenna_height",
-  "value": 150.5,
-  "unit": "ft",
-  "confidence": 0.98,
-  "rationale": "Extracted from Elevation Table on page 4 of AE201.",
-  "provenance": {
-    "document": "AE201.24-10-25.WSUTH0035137.IDL04374.pdf",
-    "page": 4,
-    "bbox": [120, 450, 150, 470]
+  "document_metadata": {
+    "title": "RF Design Study for Site WSUTH0035137",
+    "specification_id": "AE201.24-10-25.WSUTH0035137",
+    "revision": "A",
+    "authoring_organization": "Example Engineering Corp",
+    "publication_date": "2024-10-25",
+    "applicable_system": "Cellular Network Infrastructure",
+    "classification": "Internal Use",
+    "referenced_standards": ["3GPP TS 36.101", "FCC Part 24", "ETSI EN 301 908-1"],
+    "source_pages": [1, 2, 3, 4, 5]
+  },
+
+  "rf_system_overview": {
+    "system_type": "LTE/5G NR Base Station",
+    "application_domain": "Cellular Network Infrastructure",
+    "operating_modes": ["FDD", "TDD"],
+    "architecture_description": "MIMO 4x4 with Beamforming",
+    "frequency_bands": [
+      {
+        "band_name": "Band 13",
+        "lower_frequency": {
+          "value": 746,
+          "unit": "MHz",
+          "si_value_hz": 746000000
+        },
+        "upper_frequency": {
+          "value": 756,
+          "unit": "MHz",
+          "si_value_hz": 756000000
+        },
+        "confidence": 0.95,
+        "source_pages": [4]
+      }
+    ]
+  },
+
+  "performance_specifications": {
+    "frequency_characteristics": {
+      "channel_bandwidth": [
+        {
+          "value": 20,
+          "unit": "MHz",
+          "confidence": 0.92,
+          "source_pages": [6]
+        }
+      ],
+      "frequency_stability": [
+        {
+          "value": 0.1,
+          "unit": "ppm",
+          "confidence": 0.88,
+          "source_pages": [7]
+        }
+      ]
+    },
+
+    "power_and_gain": {
+      "output_power": [
+        {
+          "value": 43,
+          "unit": "dBm",
+          "confidence": 0.94,
+          "source_pages": [8]
+        }
+      ],
+      "antenna_gain": [
+        {
+          "value": 18,
+          "unit": "dBi",
+          "confidence": 0.91,
+          "source_pages": [9]
+        }
+      ]
+    },
+
+    "signal_quality": {
+      "adjacent_channel_rejection": [
+        {
+          "value": 45,
+          "unit": "dB",
+          "confidence": 0.89,
+          "source_pages": [10]
+        }
+      ]
+    }
+  },
+
+  "environmental_mechanical": {
+    "operating_temperature": [
+      {
+        "min_value": -40,
+        "max_value": 65,
+        "unit": "Celsius",
+        "confidence": 0.96,
+        "source_pages": [12]
+      }
+    ],
+    "physical_dimensions": {
+      "length": {
+        "value": 600,
+        "unit": "mm",
+        "confidence": 0.90,
+        "source_pages": [13]
+      },
+      "width": {
+        "value": 400,
+        "unit": "mm",
+        "confidence": 0.90,
+        "source_pages": [13]
+      },
+      "height": {
+        "value": 200,
+        "unit": "mm",
+        "confidence": 0.90,
+        "source_pages": [13]
+      }
+    }
+  },
+
+  "compliance_regulatory": {
+    "regulatory_standards": ["FCC Part 24", "IC RSS-129", "CE Marking"],
+    "certification_requirements": ["FCC ID", "ISED Certification"],
+    "safety_constraints": ["UL 62368-1", "IEC 62368-1"]
+  },
+
+  "tables": [
+    {
+      "table_title": "Power Amplifier Specifications",
+      "columns": ["Parameter", "Min", "Typ", "Max", "Unit"],
+      "rows": [
+        ["Output Power", "-", "40", "43", "dBm"],
+        ["Gain", "15", "18", "20", "dB"]
+      ],
+      "source_pages": [8]
+    }
+  ],
+
+  "extraction_metadata": {
+    "model_version": "gemini-3.0-pro",
+    "extraction_timestamp": "2024-11-05T10:30:00Z",
+    "confidence_aggregate": 0.92
   }
 }
 ```
+
+This represents the final aggregated output after multiple individual claims have been collected and combined into a comprehensive document representation.
 
 ---
 
