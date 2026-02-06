@@ -61,6 +61,7 @@ Unlike traditional approaches where adding RAG stores or message history can ove
 - **Memory Bank Integration:** Long-term memories are stored separately and retrieved on-demand rather than kept in the active context
 - **Session State Management:** Conversation history is managed separately from the active context, preventing window overflow
 - **Dynamic Context Optimization:** The system automatically determines which information is most relevant for the current decision, keeping the context window focused and efficient
+- **Context Compaction:** ADK provides [context compaction capabilities](https://google.github.io/adk-docs/context/compaction/) to automatically summarize and compress context when needed, ensuring optimal performance even with extensive document sets
 
 This approach ensures that adding more documents, conversation history, or RAG data doesn't simply overload the context window - instead, the system intelligently manages what information is actively available to the model at any given time.
 

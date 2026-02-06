@@ -33,60 +33,198 @@ graph TD
     F --> G[Knowledge / Claims Storage]
 ```
 
+### Parallel Processing for Multiple Document Types:
 ```mermaid
-sequenceDiagram
-    participant Customer
-    participant Supervisor as Supervisor Agent
-    participant Parser as Document Parser Tool
-    participant DocClassifier as Document Classifier
-    participant ParallelGroup as Parallel Agents
-    participant RFDSExtractor as RFDS Extraction Agent
-    participant LeaseExtractor as Lease Agreement Agent
-    participant MountExtractor as Mount Layout Agent
-    participant EmailExtractor as Email Analysis Agent
-    participant LooperGroup as Looper Process
-    participant Validator as Validation Agent
-    participant Storage as Claims Storage
-    
-    Customer->>Supervisor: Upload Multiple Documents (RFDS, Lease, Mount Layout, Emails)
-    Supervisor->>Parser: Parse All Documents (using input schema v1.2)
-    Parser-->>Supervisor: Parsed Document Structures
-    
-    %% Document classification
-    Supervisor->>DocClassifier: Classify Document Types
-    DocClassifier-->>Supervisor: Document Type Identifications
-    
-    %% Parallel processing based on document types
-    Supervisor->>Supervisor: Determine required extractions by document type
-    Supervisor->>RFDSExtractor: Process RFDS (primary document, using prompt v2.4)
-    Supervisor->>LeaseExtractor: Process Lease Agreement (using prompt v2.5)
-    Supervisor->>MountExtractor: Process Mount Layout (using prompt v2.6)
-    Supervisor->>EmailExtractor: Analyze Related Emails (using prompt v2.7)
-    
-    %% Parallel responses
-    par Parallel Document Processing
-        RFDSExtractor-->>Supervisor: RF Data with confidence
-        LeaseExtractor-->>Supervisor: Lease Constraints with confidence
-        MountExtractor-->>Supervisor: Mount Specifications with confidence
-        EmailExtractor-->>Supervisor: Requirements from Emails with confidence
+graph LR
+    subgraph "Supervisor Agent"
+        S[Orchestrator]
     end
     
-    %% Looper process for cross-document validation
-    loop Until All Validations Pass
-        Supervisor->>Validator: Validate Cross-Document Claims (using output schema v2.1)
-        Validator-->>Supervisor: Validation Results & Conflicts
-        alt Conflicts Found (e.g., Lease height vs RFDS height)
-            Supervisor->>HITL: Route to Human Review (if needed)
-            Supervisor->>RFDSExtractor: Refine with context from other docs
-            Supervisor->>LeaseExtractor: Refine with context from other docs
-        end
+    subgraph "Document Processing Agents"
+        RFDS[RFDS Extraction<br/>Agent]
+        LEASE[Lease Agreement<br/>Agent]
+        MOUNT[Mount Layout<br/>Agent]
+        EMAIL[Email Analysis<br/>Agent]
     end
     
-    %% Final fusion and storage
-    Supervisor->>Storage: Store Validated Claims (append-only log)
-    Storage-->>Supervisor: Confirmation
-    Supervisor-->>Customer: Integrated Site Validation Results
+    subgraph "Shared Resources"
+        PARSER[Document Parser]
+        VALIDATOR[Validation Agent]
+        STORAGE[Claims Storage]
+    end
+    
+    S --> PARSER
+    PARSER --> RFDS
+    PARSER --> LEASE
+    PARSER --> MOUNT
+    PARSER --> EMAIL
+    
+    RFDS --> VALIDATOR
+    LEASE --> VALIDATOR
+    MOUNT --> VALIDATOR
+    EMAIL --> VALIDATOR
+    
+    VALIDATOR --> STORAGE
 ```
+
+### Looper Process for Validation and Refinement:
+```mermaid
+graph TD
+    A[Initial Validation] --> B{Validation<br/>Passes?}
+    B -->|Yes| C[Store Valid Claims]
+    B -->|No| D[Identify Issues]
+    D --> E[Send Feedback to<br/>Extraction Agents]
+    E --> F[Refine Extractions]
+    F --> A
+```
+
+### Writer-Refiner Pattern (Looper Example):
+```mermaid
+graph TD
+    A[Writer Agent<br/>Generates Initial Output] --> B{Quality<br/>Check}
+    B -->|Acceptable| C[Approve Output]
+    B -->|Needs Improvement| D[Refiner Agent<br/>Provides Feedback]
+    D --> E[Writer Agent<br/>Revises Output]
+    E --> B
+```
+
+The [writer-refiner pattern](https://google.github.io/adk-docs/agents/workflow-agents/loop-agents/#python) is a prime example of how looper agents work in practice. In our document processing context, this could manifest as:
+
+1. **Writer Agent**: An extraction agent that generates initial interpretations of document sections
+2. **Quality Check**: Validation against technical contracts and schemas
+3. **Refiner Agent**: Another agent that reviews the output and provides specific feedback
+4. **Revision Loop**: The writer agent revises its output based on feedback until quality standards are met
+
+This pattern ensures that outputs meet the required quality standards before being accepted, creating a robust and reliable processing pipeline.
+
+## Code Implementation Example
+
+The ADK framework provides specific patterns for implementing these agent workflows. For our document processing use case, we could implement the writer-refiner pattern as follows:
+
+### Basic Structure
+```python
+from vertexai import agent_builder
+from vertexai.agent_builder import utils
+
+# Define the writer agent that performs initial extraction
+def rfds_extraction_agent(document_chunk):
+    """Extracts RF parameters from document sections"""
+    # Uses versioned prompts and schemas from technical contracts
+    prompt = get_versioned_prompt("rfds_extraction_v2.4")
+    schema = get_versioned_schema("rf_output_v1.0")
+    
+    result = llm_call(prompt, document_chunk)
+    return validate_against_schema(result, schema)
+
+# Define the refiner agent that validates and improves outputs
+def validation_refiner_agent(extracted_data):
+    """Validates extraction and provides refinement feedback"""
+    schema = get_versioned_schema("rf_output_v1.0")
+    validation_result = validate_against_schema(extracted_data, schema)
+    
+    if validation_result.confidence_score < 0.8:
+        feedback = generate_refinement_feedback(extracted_data, validation_result.errors)
+        return {"needs_revision": True, "feedback": feedback}
+    else:
+        return {"needs_revision": False, "validated_data": extracted_data}
+
+# Looper implementation
+def extraction_looper(document):
+    """Main extraction loop with validation and refinement"""
+    # GCS with RAG automatically handles document chunking
+    # No manual chunking needed - RAG provides relevant sections as needed
+    results = []
+    
+    # Writer step: initial extraction (RAG provides relevant document sections)
+    extracted = rfds_extraction_agent(document)
+    
+    # Looper: validate and refine until quality is met
+    while True:
+        refinement_result = validation_refiner_agent(extracted)
+        
+        if not refinement_result["needs_revision"]:
+            results.append(refinement_result["validated_data"])
+            break
+        else:
+            # Apply feedback to improve extraction
+            extracted = apply_feedback(extracted, refinement_result["feedback"])
+    
+    return results
+```
+
+### Parallel Processing Implementation
+```python
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+
+async def process_documents_parallel(documents):
+    """Process multiple document types in parallel"""
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = []
+        
+        for doc_type, doc in documents.items():
+            if doc_type == "rfds":
+                future = executor.submit(rfds_extraction_agent, doc)
+            elif doc_type == "lease":
+                future = executor.submit(lease_extraction_agent, doc)
+            elif doc_type == "mount_layout":
+                future = executor.submit(mount_extraction_agent, doc)
+            elif doc_type == "email":
+                future = executor.submit(email_analysis_agent, doc)
+            
+            futures.append(future)
+        
+        results = [future.result() for future in futures]
+    
+    return results
+```
+
+### Integration with Technical Contracts and RAG
+```python
+class TechnicalContractManager:
+    """Manages versioned technical contracts"""
+    
+    def __init__(self):
+        self.prompt_versions = {}
+        self.schema_versions = {}
+    
+    def get_prompt(self, contract_id, version=None):
+        """Retrieve versioned prompt for specific contract"""
+        if version:
+            return self.prompt_versions[f"{contract_id}_v{version}"]
+        else:
+            # Return latest version
+            latest_version = self.get_latest_version(contract_id, "prompt")
+            return self.prompt_versions[f"{contract_id}_v{latest_version}"]
+    
+    def validate_output(self, output, schema_id, version):
+        """Validate output against versioned schema"""
+        schema = self.get_schema(schema_id, version)
+        return validate_against_schema(output, schema)
+
+# Usage in agents
+contract_manager = TechnicalContractManager()
+
+def rfds_extraction_with_contracts_and_rag(document):
+    """Extraction using technical contracts with RAG integration"""
+    # Get versioned prompt
+    prompt = contract_manager.get_prompt("rfds_extraction", "2.4")
+    
+    # RAG automatically handles document chunking and retrieval
+    # Only relevant sections are sent to the LLM
+    result = llm_call_with_rag(prompt, document)
+    
+    # Validate against versioned schema
+    validation = contract_manager.validate_output(
+        result, 
+        "rf_output", 
+        "1.0"
+    )
+    
+    return validation
+```
+
+This code structure demonstrates how the ADK patterns can be applied to our specific document processing use case, with GCS RAG handling document chunking automatically, and clear separation of concerns between extraction, validation, and refinement processes, all governed by versioned technical contracts.
 
 ### Agent Orchestration Process:
 
