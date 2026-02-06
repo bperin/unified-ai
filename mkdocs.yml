@@ -12,6 +12,12 @@ theme:
 
 nav:
   - Home: index.md
+  - Overview: overview.md
+  - Technical Architecture: architecture.md
+  - Contract System: contracts.md
+  - Human-in-the-Loop: hitl.md
+  - Implementation: implementation.md
+  - Business Case: business-case.md
 
 markdown_extensions:
   - pymdownx.highlight:
